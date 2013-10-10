@@ -1,0 +1,48 @@
+package config;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class DriverProvider {
+	
+	private static String browserProperty = "browser";
+	private static String firefoxValue = "firefox";
+	private static String chromeValue = "chrome";
+	
+	public static WebDriver getDriver() {
+		if (isChrome()) {
+			System.out.println("is Chrome");
+			return getChromeDriver();
+		}
+		System.out.println("is firefox");
+		return getFirefoxDriver();
+	}
+	
+	public static WebDriver getFirefoxDriver() {
+		return new FirefoxDriver();
+	}
+
+	public static WebDriver getChromeDriver() {
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		return new ChromeDriver();
+	}
+	
+	private static Boolean isChrome() {
+		return getBrowser().equals(chromeValue);
+	}
+	
+	private static Boolean isFirefox() {
+		return getBrowser().equals(firefoxValue);
+	}
+	
+	private static String getBrowser() {
+		return Config.getInstance().getProperty(browserProperty);
+	} 
+	
+}

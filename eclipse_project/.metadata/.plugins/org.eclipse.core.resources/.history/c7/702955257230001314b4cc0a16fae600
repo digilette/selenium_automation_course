@@ -1,0 +1,7 @@
+!comentarios con ! o con #. 
+#documentacion de este tipo de archivos: 
+#http://docs.oracle.com/javase/6/docs/api/java/util/Properties.html#load(java.io.Reader)
+#http://docs.oracle.com/javase/6/docs/api/java/util/Properties.html#load(java.io.InputStream)
+
+baseurl=http://accounts.google.com/
+browser=firefox

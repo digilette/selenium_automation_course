@@ -1,0 +1,9 @@
+- importar jars del zip.
+- add library junit 4
+
+Page Object pattern
+Page Factory pattern
+
+
+http://stackoverflow.com/questions/11736027/webdriver-wait-for-element
+http://chromedriver.storage.googleapis.com/index.html?path=2.4/

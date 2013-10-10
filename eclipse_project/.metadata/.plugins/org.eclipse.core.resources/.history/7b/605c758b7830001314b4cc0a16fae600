@@ -1,0 +1,14 @@
+!comentarios con ! o con #. 
+#documentacion de este tipo de archivos: 
+#http://docs.oracle.com/javase/6/docs/api/java/util/Properties.html#load(java.io.Reader)
+#http://docs.oracle.com/javase/6/docs/api/java/util/Properties.html#load(java.io.InputStream)
+
+!url base para los tests
+baseurl=http://accounts.google.com/
+
+!configuracio de driver a utilizar, ver DriverProvider
+browser=chrome
+!valores: firefox, chrome
+
+!solo para chrome:
+webdriver.chrome.driver=chromedriver.exe

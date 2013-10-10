@@ -1,0 +1,38 @@
+package config;
+
+import java.util.NoSuchElementException;
+
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class BaseClass {
+	protected static WebDriver driver;
+	
+//	@BeforeClass
+//	public static void setUp() {
+//		driver = new FirefoxDriver();
+//	}
+
+	@BeforeClass
+	public static void setUp() {
+		driver = new ChromeDriver();
+	}
+	
+	@AfterClass
+	public static void tearDown() {
+		driver.quit();
+	}
+	
+	protected Boolean elementExists(org.openqa.selenium.By arg0)
+	{
+		try {
+			driver.findElement(arg0);
+		} catch(NoSuchElementException e) {
+			return false;
+		}
+		return true;
+	}
+}

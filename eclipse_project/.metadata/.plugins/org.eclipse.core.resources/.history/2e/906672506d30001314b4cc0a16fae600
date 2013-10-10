@@ -1,0 +1,80 @@
+package tests;
+
+import static org.junit.Assert.*;
+
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import config.BaseClass;
+
+public class TestLandingPage extends BaseClass {
+	private static final String EX_PRODUCT_INFO_DESCRIPTION = "¿Quieres disfrutar de lo mejor de Google?";
+	private static final String EX_PAGE_TITLE = "Google Accounts";
+	private static final String EX_PAGE_TITLE_ES = "Cuentas de Google";
+	protected static final String startPage = "http://accounts.google.com";  
+
+	@BeforeClass
+	public static void goToStartPage()
+	{
+		driver.get(startPage);
+	}
+	
+	@Test
+	public void testPageTitle() {
+		// Conseguir valor actual
+		String actualTitle;
+		actualTitle = driver.getTitle();
+
+		// Comparar valores
+		assertTrue(EX_PAGE_TITLE.equals(actualTitle)
+				|| EX_PAGE_TITLE_ES.equals(actualTitle));
+	}
+
+	@Test
+	public void testLoginFail() {
+		// Mapeo
+		WebElement emailField;
+		emailField = driver.findElement(By.id("Email"));
+
+		WebElement passwordField;
+		passwordField = driver.findElement(By.id("Passwd"));
+
+		WebElement submitButton;
+		submitButton = driver.findElement(By.id("signIn"));
+
+		// Interactuar
+		emailField.sendKeys("usuario@gmail.com");
+		passwordField.sendKeys("123456");
+
+		submitButton.click();
+
+		// errorMessage
+		WebElement errorMessage;
+		errorMessage = driver.findElement(By
+				.cssSelector(".errormsg, .captcha-box"));
+		assertTrue(errorMessage.isDisplayed());
+	}
+
+	@Test
+	public void testProductInfoExists() {
+		WebElement infoContainer = driver.findElement(By
+				.className("product-info"));
+		assertEquals(1,
+				infoContainer.findElements(By.className("product-headers"))
+						.size());
+		assertEquals(1,
+				infoContainer.findElement(By.className("product-headers"))
+						.findElements(By.tagName("h1")).size());
+		assertEquals(1, infoContainer.findElements(By.tagName("p")).size());
+	}
+
+	@Test
+	public void testProductInfoHasContent() {
+		WebElement productInfo = driver.findElement(By
+				.className("product-info"));
+		WebElement textDescription = productInfo.findElement(By.tagName("p"));
+		assertTrue(textDescription.getText().contains(EX_PRODUCT_INFO_DESCRIPTION));
+	}
+}

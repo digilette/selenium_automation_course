@@ -1,0 +1,5 @@
+package config;
+
+public class Config {
+	private static Config INSTANCE = null;
+}

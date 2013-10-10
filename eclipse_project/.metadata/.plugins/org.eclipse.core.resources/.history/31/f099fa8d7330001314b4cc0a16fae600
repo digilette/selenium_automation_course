@@ -1,0 +1,57 @@
+package config;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.NoSuchElementException;
+import java.util.Properties;
+
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class BaseClass {
+	protected static WebDriver driver;
+	protected static Config config;
+	
+	@BeforeClass
+	public static void setUp() throws FileNotFoundException, IOException {
+		config = Config.getInstance();
+	}
+	
+	protected static String getUrl(String urlPath) {
+		return config.getProperty("baseurl") + urlPath;
+	}
+	
+	protected static void goToUrl(String urlPath) {
+		driver.get(getUrl(urlPath));
+	}
+	
+	public static void setUpFirefox() {
+		driver = new FirefoxDriver();
+	}
+
+	@BeforeClass
+	public static void setUpChrome() {
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		driver = new ChromeDriver();
+	}
+	
+	@AfterClass
+	public static void tearDown() {
+		driver.quit();
+	}
+	
+	protected Boolean elementExists(org.openqa.selenium.By arg0)
+	{
+		try {
+			driver.findElement(arg0);
+		} catch(NoSuchElementException e) {
+			return false;
+		}
+		return true;
+	}
+}

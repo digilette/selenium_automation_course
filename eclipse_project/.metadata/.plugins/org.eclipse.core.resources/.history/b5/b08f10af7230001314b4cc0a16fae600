@@ -1,0 +1,27 @@
+package config;
+
+import java.util.Properties;
+
+public class Config {
+	private static Config INSTANCE = null;
+	protected static Properties properties;
+	
+	private Config(){
+		properties = new Properties();
+	}
+	
+    private synchronized static void createInstance() {
+        if (INSTANCE == null) { 
+            INSTANCE = new Config();
+        }
+    }
+ 
+    public static Config getInstance() {
+        createInstance();
+        return INSTANCE;
+    }
+    
+    public function getProperty(String key) {
+    	
+    }
+}

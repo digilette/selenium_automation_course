@@ -1,0 +1,37 @@
+package config;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
+
+public class Config {
+	
+	protected final static String settingsFileName = "settings";
+	
+	private static Config INSTANCE = null;
+	
+	protected Properties properties;
+	
+	private Config() throws FileNotFoundException, IOException{
+		properties = new Properties();
+		properties.load(new FileInputStream(settingsFileName));
+	}
+	
+    private synchronized static void createInstance() throws FileNotFoundException, IOException {
+        if (INSTANCE == null) { 
+            INSTANCE = new Config();
+        }
+    }
+ 
+    public static Config getInstance() {
+        createInstance();
+        return INSTANCE;
+    }
+    
+    public String getProperty(String key) {
+    	System.out.println(this.properties.getProperty(key));
+    	System.out.println(key);
+    	return this.properties.getProperty(key);
+    }
+}
